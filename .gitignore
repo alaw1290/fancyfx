@@ -102,3 +102,5 @@ ENV/
 
 # custom
 config.py
+.DS_Store
+bin
