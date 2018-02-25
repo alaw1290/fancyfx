@@ -1,7 +1,7 @@
 # fancyfx
 python/d3.js/mongodb visualization tool of arbitrage in historical and current forex tick data
 
-# background
+## background
 currencies in scope are: 
 - AUD
 - CAD
@@ -18,7 +18,7 @@ the bellman ford algorithm can be used to detect negative cycles in a network wi
 
 using -1 * log(exchange rates) as edge weights, use the bellman ford algorithm to find instances of arbitrage
 
-# current stage
+## current stage
 - scrape gain capital historical rate data for every exchange rate in scope for the year of 2017
 - transform tick data for each currency table to one unified table with every tick for every currency
 - load in transformed data to mongoDB server 
