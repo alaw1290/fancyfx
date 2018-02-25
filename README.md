@@ -11,6 +11,7 @@ currencies in scope are:
 - USD
 - JPY
 - NZD
+
 all currencies in scope have exchange rates for all other currencies, thus this forms a complete graph with 64 connections
 
 the bellman ford algorithm can be used to detect negative cycles in a network with weighted edges
