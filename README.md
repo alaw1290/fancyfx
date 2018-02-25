@@ -3,14 +3,14 @@ python/d3.js/mongodb visualization tool of arbitrage in historical and current f
 
 # background
 currencies in scope are: 
-	- AUD
-	- CAD
-	- CHF
-	- EUR
-	- GBP
-	- USD
-	- JPY
-	- NZD
+- AUD
+- CAD
+- CHF
+- EUR
+- GBP
+- USD
+- JPY
+- NZD
 all currencies in scope have exchange rates for all other currencies, thus this forms a complete graph with 64 connections
 
 the bellman ford algorithm can be used to detect negative cycles in a network with weighted edges
