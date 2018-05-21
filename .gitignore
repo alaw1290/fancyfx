@@ -104,4 +104,4 @@ ENV/
 config.py
 .DS_Store
 bin
-raw_data
+db/data
