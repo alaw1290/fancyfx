@@ -261,11 +261,22 @@ def parse_row(  row, 						# Raw:
 
 def main():
 	
-	read_month_dir('/Users/adrian/Desktop/stuff/fancyfx/db/data/raw/2017/01 January',
-			'/Users/adrian/Desktop/stuff/fancyfx/db/data/processed/2017/01 January',
-			'test_jan_join.csv',
+
+	year_path = '/Users/adrian/Desktop/stuff/fancyfx/db/data/raw/2017/'
+	out_path = '/Users/adrian/Desktop/stuff/fancyfx/db/data/processed/2017/'
+	for i,month_dir in enumerate(os.listdir(year_path)):
+		read_month_dir(os.path.join(year_path, month_dir),
+			os.path.join(out_path, month_dir),
+			"%d_data.csv"%i,
 			files_per_worker=4
-		)
+			)
+
+
+	# read_month_dir('/Users/adrian/Desktop/stuff/fancyfx/db/data/raw/2017/01 January',
+	# 		'/Users/adrian/Desktop/stuff/fancyfx/db/data/processed/2017/01 January',
+	# 		'test_jan_join.csv',
+	# 		files_per_worker=4
+	# 	)
 
 	# read_month_dir('/Users/adrian/Desktop/stuff/fancyfx/db/data/raw/2017/01 January',
 	# 		'/Users/adrian/Desktop/stuff/fancyfx/db/data/processed/2017/01 January',
