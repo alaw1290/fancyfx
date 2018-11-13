@@ -11,18 +11,20 @@ def merge_csvs(csv_filepaths, raw_csv_schema, currency_pair_col_name, currency_p
 	line_dt_index = raw_csv_schema.index(date_time_col_name)
 	
 	# organize file objects by filename
-	filename_to_files = {}
+	filename_to_reader = {}
+	filename_to_fileobj = {}
 	for filepath in csv_filepaths:
 		fileobj = open(filepath)
 		filename = os.path.basename(fileobj.name)
-		filename_to_files[filename] = csv.reader(fileobj)
-		filename_to_files[filename].__next__()
+		filename_to_fileobj[filename] = fileobj
+		filename_to_reader[filename] = csv.reader(fileobj)
+		filename_to_reader[filename].__next__()
 
 	# get the first tick of every file
 	next_smallest_pairs = []
-	for filename in filename_to_files:
+	for filename in filename_to_reader:
 
-		line = filename_to_files[filename].__next__()
+		line = filename_to_reader[filename].__next__()
 		line_date_time = line[line_dt_index]
 		line_date_time = datetime.strptime(line_date_time[:date_time_length], date_time_format)
 		line[line_dt_index] = line_date_time
@@ -39,7 +41,7 @@ def merge_csvs(csv_filepaths, raw_csv_schema, currency_pair_col_name, currency_p
 		# get the next available tick from that file
 		try:
 			filename = next_tick_update[0]
-			next_pair_line = filename_to_files[filename].__next__()
+			next_pair_line = filename_to_reader[filename].__next__()
 			line_date_time = next_pair_line[line_dt_index]
 
 			try:
@@ -50,8 +52,9 @@ def merge_csvs(csv_filepaths, raw_csv_schema, currency_pair_col_name, currency_p
 			next_pair_line[line_dt_index] = line_date_time
 			next_smallest_pairs.append((filename,next_pair_line))
 		except StopIteration as e:
-			# filename_to_files[filename].close()
-			pass
+			filename_to_fileobj[filename].close()
+			del filename_to_reader[filename]
+			del filename_to_fileobj[filename]
 		except IndexError as e:
 			pass
 		# get the current tick data for this currency pair

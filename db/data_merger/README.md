@@ -26,7 +26,6 @@ this python codeblock will import and run the merger (ensure you have a config.p
 
 
 ```
-import itertools
 currencies_list = ['AUD','CAD','CHF','EUR','GBP','USD','JPY','NZD']
 import data_merger
 data_merger.run_merger(currencies_list,'2017')
