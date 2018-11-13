@@ -7,8 +7,8 @@ purpose: used to scrape the exchange rate tick data from the gain data repositor
 add a config file in the same level as the init scrip with the information below:
 
 ```
-downloads_directory = '/Users/adrian/Desktop/stuff/fancyfx/mongo/raw_data'
-webdriver_path = '/Users/adrian/Desktop/stuff/fancyfx/mongo/gain_data_scraper/webdriver/chromedriver'
+downloads_directory = '.../fancyfx/mongo/raw_data'
+webdriver_path = '.../fancyfx/mongo/gain_data_scraper/webdriver/chromedriver'
 ```
 
 

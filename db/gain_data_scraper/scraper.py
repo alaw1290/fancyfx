@@ -22,7 +22,7 @@ def run_scraper(currency_pairs, year, downloads_directory, webdriver_path):
 	chrome_options.add_experimental_option("prefs",prefs)
 
 	driver = webdriver.Chrome(executable_path=webdriver_path, chrome_options=chrome_options)
-	driver.get('http://ratedata.gaincapital.com/%s'%year)
+	driver.get(f'http://ratedata.gaincapital.com/{year}')
 
 	if '404' in driver.title:
 		driver.close()
@@ -44,7 +44,7 @@ def run_scraper(currency_pairs, year, downloads_directory, webdriver_path):
 		]
 
 	for month in months:
-		driver.get('http://ratedata.gaincapital.com/%s/%s'%(year,month))
+		driver.get(f'http://ratedata.gaincapital.com/{year}/{month}')
 		a_links = driver.find_elements(By.TAG_NAME, 'a')
 		for link in a_links:
 			filename = link.text
@@ -55,8 +55,8 @@ def run_scraper(currency_pairs, year, downloads_directory, webdriver_path):
 						link.click()
 						break
 		time.sleep(30)
-		destination = os.path.join(downloads_directory, '%s/%s'%(year,month))
-		os.makedirs(os.path.join(downloads_directory, '%s/%s'%(year,month)), exist_ok=True)
+		destination = os.path.join(downloads_directory, f'{year}/{month}')
+		os.makedirs(os.path.join(downloads_directory, f'{year}/{month}'), exist_ok=True)
 		zip_files = os.listdir(downloads_directory)
 		for zip_file in zip_files:
 			if '.zip' in zip_file:

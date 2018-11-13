@@ -1,1 +1,0 @@
-['AUD','CAD','CHF','EUR','GBP','USD','JPY','NZD']
