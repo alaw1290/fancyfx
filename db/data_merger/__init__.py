@@ -37,6 +37,7 @@ def run_merger(currencies, year, data_directory=data_directory, output_directory
 					date_time_length)
 
 		filename = '_'.join(month_dir.split(' '))
-		with open(os.path.join(output_directory, year, f"{filename}.pkl"), 'wb') as f:
-			pickle.dump(month_tick_data, f)
-		print(f'{filename} done')
+		return month_tick_data
+		# with open(os.path.join(output_directory, year, f"{filename}.pkl"), 'wb') as f:
+		# 	pickle.dump(month_tick_data, f)
+		# print(f'{filename} done')

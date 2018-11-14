@@ -8,7 +8,10 @@ def read_month_dir(dirpath, output_dir, output_name, files_per_worker = 2):
 	Given the path to the month directory, reads and merges all csv files using a divide and conquer pattern
 	calls divide conquer helper to recursively build final result
 	'''
-
+	try:
+		os.mkdir(output_dir)
+	except OSError as e:
+		pass
 	# call helper 
 	divide_conquer_helper(dirpath, output_dir, output_name, files_per_worker, False,
 				["lTid","cDealable","CurrencyPair","RateDateTime","RateBid","RateAsk"],
@@ -136,7 +139,7 @@ def join_files(	filepaths,
 				date_time_length
 			)
 
-	with open(outpath, "w", buffering=1) as file:
+	with open(outpath, "w+", buffering=1) as file:
 		writer = csv.DictWriter(file, fieldnames=['RateDateTime', 'CurrencyPair', 'RateBid', 'RateAsk'])
 		writer.writeheader()
 
@@ -252,9 +255,10 @@ def parse_row(  row, 						# Raw:
 	try:
 		timestamp = datetime.strptime(timestamp[:date_time_length], date_time_format)
 	except ValueError:
-		timestamp = datetime.strptime(timestamp[:date_time_length], "%Y-%m-%d %H:%M:%S")
-	except ValueError:
-		timestamp = datetime.fromtimestamp(float(timestamp))
+		try:
+			timestamp = datetime.strptime(timestamp[:date_time_length], "%Y-%m-%d %H:%M:%S")
+		except ValueError:
+			timestamp = datetime.fromtimestamp(float(timestamp))
 
 	# format of the returned row: time, currency pair, bid rate, ask rate
 	return [timestamp, (cur_A,cur_B), bid_rate, ask_rate]
@@ -267,7 +271,7 @@ def main():
 	for i,month_dir in enumerate(os.listdir(year_path)):
 		read_month_dir(os.path.join(year_path, month_dir),
 			os.path.join(out_path, month_dir),
-			"%d_data.csv"%i,
+			"data.csv",
 			files_per_worker=4
 			)
 
