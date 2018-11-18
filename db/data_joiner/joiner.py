@@ -269,11 +269,12 @@ def main():
 	year_path = '/Users/adrian/Desktop/stuff/fancyfx/db/data/raw/2017/'
 	out_path = '/Users/adrian/Desktop/stuff/fancyfx/db/data/processed/2017/'
 	for i,month_dir in enumerate(os.listdir(year_path)):
-		read_month_dir(os.path.join(year_path, month_dir),
-			os.path.join(out_path, month_dir),
-			"data.csv",
-			files_per_worker=4
-			)
+		if os.path.isdir(os.path.join(year_path, month_dir)):
+			read_month_dir(os.path.join(year_path, month_dir),
+				os.path.join(out_path, month_dir),
+				"data.csv",
+				files_per_worker=4
+				)
 
 
 	# read_month_dir('/Users/adrian/Desktop/stuff/fancyfx/db/data/raw/2017/01 January',
@@ -308,5 +309,5 @@ def main():
 if __name__ == '__main__':
 	t = int(datetime.now().strftime('%s'))
 	main()
-	print("%s seconds"%str(int(datetime.now().strftime('%s'))) - int(t))
+	# print("%s seconds"%str(int(datetime.now().strftime('%s'))) - int(t)) 
 
